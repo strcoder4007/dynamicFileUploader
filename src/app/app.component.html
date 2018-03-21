@@ -1,11 +1,6 @@
-<div class="row gutter-0 header">Dynamic File Uploader</div>
-
-<div class="row gutter-0">
+<div class="row gutter-0 header">
     <div class="container">
-            <angular-file-uploader 
-            [config]="afuConfig"
-            [resetUpload]=resetVar
-            (ApiResponse)="DocUpload($event)">
-      </angular-file-uploader>
+        <p>Dynamic File Uploader</p>
+        <button class="btn btn-default" (click)="openFilestack()">upload</button>
     </div>
 </div>

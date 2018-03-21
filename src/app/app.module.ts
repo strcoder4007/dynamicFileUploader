@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
-import { FileUploadModule } from 'angular-file-uploader';
 
 
 @NgModule({
@@ -11,8 +9,7 @@ import { FileUploadModule } from 'angular-file-uploader';
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    FileUploadModule
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
