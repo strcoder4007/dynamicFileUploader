@@ -12,5 +12,8 @@
 }
 
 .urls {
-    font-size: 0.25em;
+    font-size: .5em;
+    margin-bottom: 30px;
+    font-family: "roboto";
+    color: whitesmoke;
 }

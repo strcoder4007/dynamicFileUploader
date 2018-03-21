@@ -8,8 +8,9 @@ import filestack from 'filestack-js';
 })
 export class AppComponent implements OnInit {
     title = 'app';
-    allUrls:String[];
+    allUrls: String[];
     arrayLength: Number = 0;
+    refreshUrls: Boolean = true;
 
     openFilestack() {
         const apiKey = 'A9CFNM6bKS2qOfMvu8SSQz';
@@ -29,6 +30,8 @@ export class AppComponent implements OnInit {
             this.allUrls.splice(this.allUrls.length-1, 1);
             if(this.arrayLength != this.allUrls.length) {
                 this.arrayLength = this.allUrls.length;
+                this.refreshUrls = !this.refreshUrls;
+                this.refreshUrls = !this.refreshUrls;
             }
             console.log(this.allUrls);
         });
@@ -37,6 +40,16 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         if(localStorage.getItem("masterUrl") == undefined) {
             localStorage.setItem("masterUrl", "");
+        }
+        else {
+            this.allUrls = localStorage.getItem("masterUrl").split('#');
+            this.allUrls.splice(this.allUrls.length-1, 1);
+            if(this.arrayLength != this.allUrls.length) {
+                this.arrayLength = this.allUrls.length;
+                this.refreshUrls = !this.refreshUrls;
+                this.refreshUrls = !this.refreshUrls;
+            }
+            console.log(localStorage.getItem("masterUrl"));
         }
     }
 }

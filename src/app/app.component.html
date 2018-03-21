@@ -2,9 +2,17 @@
     <div class="container">
         <p>Dynamic File Uploader</p>
         <button class="btn btn-primary" (click)="openFilestack();">upload multiple files</button>
-        <div *ngIf="allUrls"
-        <div *ngFor="let url of allUrls" class="urls">
-            <p>=> {{url.url}}</p>
+        <div *ngIf="refreshUrls">
+                <div *ngFor="let url of allUrls" class="urls">
+                    <div class="row urls">
+                        <div class="col-md-3">
+                                <img src="{{url}}" height="100px" />
+                        </div>
+                        <div class="col-md-9" style="text-align: left">
+                            
+                        </div>
+                    </div>
+                    </div>
         </div>
     </div>
 </div>
