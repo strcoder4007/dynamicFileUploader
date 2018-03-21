@@ -1,6 +1,10 @@
 <div class="row gutter-0 header">
     <div class="container">
         <p>Dynamic File Uploader</p>
-        <button class="btn btn-default" (click)="openFilestack()">upload</button>
+        <button class="btn btn-primary" (click)="openFilestack();">upload multiple files</button>
+        <div *ngIf="allUrls"
+        <div *ngFor="let url of allUrls" class="urls">
+            <p>=> {{url.url}}</p>
+        </div>
     </div>
 </div>
