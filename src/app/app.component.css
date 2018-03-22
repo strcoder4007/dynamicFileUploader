@@ -17,3 +17,7 @@
     font-family: "roboto";
     color: whitesmoke;
 }
+
+.btn {
+    border-radius: 0px !important;
+}

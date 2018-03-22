@@ -12,6 +12,22 @@ export class AppComponent implements OnInit {
     arrayLength: Number = 0;
     refreshUrls: Boolean = true;
 
+    processArray() {
+        this.allUrls = localStorage.getItem("masterUrl").split('#');
+        this.allUrls.splice(this.allUrls.length-1, 1);
+        if(this.arrayLength != this.allUrls.length) {
+            this.arrayLength = this.allUrls.length;
+            this.refreshUrls = !this.refreshUrls;
+            this.refreshUrls = !this.refreshUrls;
+        }
+        console.log(this.allUrls);
+    }
+
+    deleteCache() {
+        localStorage.setItem("masterUrl", "");
+        this.processArray();
+    }
+
     openFilestack() {
         const apiKey = 'A9CFNM6bKS2qOfMvu8SSQz';
         const client = filestack.init(apiKey);
@@ -26,14 +42,7 @@ export class AppComponent implements OnInit {
             let masterUrl = localStorage.getItem("masterUrl") + transformUrl + '#';
             localStorage.setItem("masterUrl", masterUrl);
         }).then(() => {
-            this.allUrls = localStorage.getItem("masterUrl").split('#');
-            this.allUrls.splice(this.allUrls.length-1, 1);
-            if(this.arrayLength != this.allUrls.length) {
-                this.arrayLength = this.allUrls.length;
-                this.refreshUrls = !this.refreshUrls;
-                this.refreshUrls = !this.refreshUrls;
-            }
-            console.log(this.allUrls);
+            this.processArray();
         });
     }
 
@@ -42,14 +51,7 @@ export class AppComponent implements OnInit {
             localStorage.setItem("masterUrl", "");
         }
         else {
-            this.allUrls = localStorage.getItem("masterUrl").split('#');
-            this.allUrls.splice(this.allUrls.length-1, 1);
-            if(this.arrayLength != this.allUrls.length) {
-                this.arrayLength = this.allUrls.length;
-                this.refreshUrls = !this.refreshUrls;
-                this.refreshUrls = !this.refreshUrls;
-            }
-            console.log(localStorage.getItem("masterUrl"));
+            this.processArray();
         }
     }
 }
