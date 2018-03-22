@@ -35,10 +35,10 @@ export class AppComponent implements OnInit {
         for (let i = 0; i < this.allUrls.length; i++) {
             let handle = this.allUrls[i].split('/')[4];
             let metadataUrl = "https://www.filestackapi.com/api/file/" + handle + "/metadata";
-            this.getposts(metadataUrl).subscribe((metadata) => {
-                this.metadata.push(metadata);
-                console.log(metadata);
-                this.allUrls[i] += "#" + metadata.filename + "#" + metadata.size;
+            this.getposts(metadataUrl).subscribe((meta) => {
+                this.metadata.push(meta);
+                console.log(meta);
+                this.allUrls[i] += "#" + meta['filename'] + "#" + meta['size'];
                 console.log(this.allUrls[i]);
             })
         }
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
     openFilestack() {
         const client = filestack.init(this.apiKey);
         client.pick({
-            accept: ['.pdf'],
+            accept: ['.pdf', '.tiff'],
             maxFiles: 30
         }).then(function (result) {
             const fileUrl = result.filesUploaded[0].url;
