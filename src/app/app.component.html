@@ -4,13 +4,15 @@
         <button class="btn btn-primary" (click)="openFilestack();">upload multiple files</button>
         <button class="btn btn-danger" (click)="deleteCache();">clear all</button>
         <div *ngIf="refreshUrls">
-                <div *ngFor="let url of allUrls" class="urls">
+                <div *ngFor="let url of allUrls; index as i;" class="urls">
                     <div class="row urls">
-                        <div class="col-md-1">
-                                <img src="{{url}}" height="110px" />
+                        <div class="col-xs-4 col-sm-2 col-md-2">
+                                <img src="{{url.split('#')[0]}}" height="110px" />
                         </div>
-                        <div class="col-md-11" style="text-align: left">
-                            PNG FIle
+                        <div class="col-xs-8 col-sm-10 col-md-10" style="text-align: left">
+                            Name: {{url.split('#')[1].split('.')[0]}}.png<br>
+                            Size: {{url.split('#')[2]}} bytes<br>
+                            <a class="btn" target="_blank" href="{{'https://process.filestackapi.com/output=format:png/'+ url.split('#')[0].split('/')[4] }}">open png</a>
                         </div>
                     </div>
                     </div>

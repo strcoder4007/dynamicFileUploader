@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import filestack from 'filestack-js';
+import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-root',
@@ -9,18 +11,37 @@ import filestack from 'filestack-js';
 export class AppComponent implements OnInit {
     title = 'app';
     allUrls: String[];
+    metadata = [];
     arrayLength: Number = 0;
     refreshUrls: Boolean = true;
+    apiKey = 'A9CFNM6bKS2qOfMvu8SSQz';
+
+    constructor(private http: HttpClient) {
+
+    }
+
+    getposts(metadataUrl) {
+        return this.http.get(metadataUrl);
+    }
 
     processArray() {
         this.allUrls = localStorage.getItem("masterUrl").split('#');
-        this.allUrls.splice(this.allUrls.length-1, 1);
-        if(this.arrayLength != this.allUrls.length) {
+        this.allUrls.splice(this.allUrls.length - 1, 1);
+        if (this.arrayLength != this.allUrls.length) {
             this.arrayLength = this.allUrls.length;
             this.refreshUrls = !this.refreshUrls;
             this.refreshUrls = !this.refreshUrls;
         }
-        console.log(this.allUrls);
+        for (let i = 0; i < this.allUrls.length; i++) {
+            let handle = this.allUrls[i].split('/')[4];
+            let metadataUrl = "https://www.filestackapi.com/api/file/" + handle + "/metadata";
+            this.getposts(metadataUrl).subscribe((metadata) => {
+                this.metadata.push(metadata);
+                console.log(metadata);
+                this.allUrls[i] += "#" + metadata.filename + "#" + metadata.size;
+                console.log(this.allUrls[i]);
+            })
+        }
     }
 
     deleteCache() {
@@ -29,16 +50,15 @@ export class AppComponent implements OnInit {
     }
 
     openFilestack() {
-        const apiKey = 'A9CFNM6bKS2qOfMvu8SSQz';
-        const client = filestack.init(apiKey);
+        const client = filestack.init(this.apiKey);
         client.pick({
             accept: ['.pdf'],
             maxFiles: 30
         }).then(function (result) {
             const fileUrl = result.filesUploaded[0].url;
             let urlAry = fileUrl.split('/');
-            let uploadUrl = urlAry[urlAry.length-1];
-            let transformUrl = "https://process.filestackapi.com/output=format:png/" + uploadUrl;
+            let handle = urlAry[urlAry.length - 1];
+            let transformUrl = "https://process.filestackapi.com/output=format:png/" + handle;
             let masterUrl = localStorage.getItem("masterUrl") + transformUrl + '#';
             localStorage.setItem("masterUrl", masterUrl);
         }).then(() => {
@@ -47,7 +67,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(localStorage.getItem("masterUrl") == undefined) {
+        if (localStorage.getItem("masterUrl") == undefined) {
             localStorage.setItem("masterUrl", "");
         }
         else {
