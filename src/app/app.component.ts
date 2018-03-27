@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
             localStorage.setItem("masterUrl", "");
         }
         else {
-            this.processArray();
+            //this.processArray();
         }
     }
 }
