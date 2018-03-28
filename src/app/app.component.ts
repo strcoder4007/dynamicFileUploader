@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import filestack from 'filestack-js';
+//import filestack from 'filestack-js';
 import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
 
@@ -50,6 +50,7 @@ export class AppComponent implements OnInit {
     }
 
     openFilestack() {
+        /*
         const client = filestack.init(this.apiKey);
         client.pick({
             accept: ['.pdf', '.tiff'],
@@ -64,6 +65,7 @@ export class AppComponent implements OnInit {
         }).then(() => {
             this.processArray();
         });
+        */
     }
 
     ngOnInit() {
